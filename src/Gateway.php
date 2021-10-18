@@ -69,7 +69,7 @@ class Gateway extends AbstractGateway
      *
      * @return \Omnipay\Common\AbstractGateway
      */
-    public function setApiKey(string $value)
+    public function setAccessToken(string $value)
     {
         return $this->setParameter('accessToken', $value);
     }

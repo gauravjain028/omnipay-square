@@ -19,7 +19,23 @@ abstract class AbstractResponse extends BaseAbstractResponse
      */
     public function isSuccessful() : bool
     {
-        return !$this->data instanceof Throwable && !empty($this->data->getErrors());
+        return !$this->data instanceof Throwable && empty($this->data->getErrors());
+    }
+
+    /**
+     * Response code
+     *
+     * @return null|string A response code from the payment gateway
+     */
+    public function getCode()
+    {
+        if ($this->data instanceof Throwable) {
+            return $this->data->getCode();
+        } elseif ($errors = $this->data->getErrors()) {
+            return $errors[0]->getCode();
+        }
+
+        return null;
     }
 
     /**
@@ -27,7 +43,13 @@ abstract class AbstractResponse extends BaseAbstractResponse
      */
     public function getMessage() : string
     {
-        return ($this->data instanceof Throwable) ? $this->data->getMessage() : '';
+        if ($this->data instanceof Throwable) {
+            return $this->data->getCode().': Exception when creating transaction: ' . $this->data->getMessage();
+        } elseif ($errors = $this->data->getErrors()) {
+            return $errors[0]->getCode().': '. $errors[0]->getDetail();
+        }
+
+        return '';
     }
 
     /**
@@ -35,10 +57,6 @@ abstract class AbstractResponse extends BaseAbstractResponse
      */
     public function getData()
     {
-        if ($this->data instanceof Throwable) {
-            return $this->data->getMessage();
-        } else {
-            return $this->data;
-        }
+       return $this->data;
     }
 }

@@ -7,6 +7,7 @@ namespace Omnipay\Square\Message;
 use Throwable;
 use Square\Apis\PaymentsApi;
 use Square\Environment;
+use Square\Models\CashPaymentDetails;
 use Square\Models\CreatePaymentRequest as CreatePaymentRequestModel;
 use Square\Models\Money;
 use Square\SquareClient;
@@ -36,7 +37,7 @@ class CreatePaymentRequest extends AbstractRequest
      */
     public function setSourceId(string $value) : CreatePaymentRequest
     {
-        return $this->getParameter('sourceId', $value);
+        return $this->setParameter('sourceId', $value);
     }
 
     /**
@@ -58,7 +59,7 @@ class CreatePaymentRequest extends AbstractRequest
      */
     public function setIdempotencyKey(string $value) : CreatePaymentRequest
     {
-        return $this->getParameter('idempotencyKey', $value);
+        return $this->setParameter('idempotencyKey', $value);
     }
 
     /**
@@ -80,7 +81,7 @@ class CreatePaymentRequest extends AbstractRequest
      */
     public function setReferenceId(string $value) : CreatePaymentRequest
     {
-        return $this->getParameter('referenceId', $value);
+        return $this->setParameter('referenceId', $value);
     }
 
     /**
@@ -160,6 +161,13 @@ class CreatePaymentRequest extends AbstractRequest
             $data->setVerificationToken($this->getVerificationToken());
         }
 
+        if ($sourceId === 'CASH') {
+            $cash = new CashPaymentDetails($amountMoney);
+            $data->setCashDetails($cash);
+        }
+
+        $data->setReferenceId($this->getReferenceId());
+
         return $data;
     }
 
@@ -212,10 +220,10 @@ class CreatePaymentRequest extends AbstractRequest
      * @param       $data
      * @param array $headers
      *
-     * @return Response
+     * @return \Omnipay\Square\Message\CreatePaymentResponse
      */
-    protected function createResponse($data, $headers = []) : Response
+    protected function createResponse($data, $headers = []) : CreatePaymentResponse
     {
-        return $this->response = new Response($this, $data, $headers);
+        return $this->response = new CreatePaymentResponse($this, $data, $headers);
     }
 }
