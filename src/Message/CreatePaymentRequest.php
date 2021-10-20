@@ -12,9 +12,9 @@ use Square\Models\CreatePaymentRequest as CreatePaymentRequestModel;
 use Square\Models\Money;
 use Square\SquareClient;
 /**
- * Class ChargeRequest
+ * Class CreatePaymentRequest
  *
- * @package Omnipay\CoinbaseCommerce\Message
+ * @package Omnipay\Sqaure\Message
  */
 class CreatePaymentRequest extends AbstractRequest
 {
@@ -41,50 +41,6 @@ class CreatePaymentRequest extends AbstractRequest
     }
 
     /**
-     * Get idempotencyKey for the payment
-     *
-     * @return string
-     */
-    public function getIdempotencyKey() : string
-    {
-        return $this->getParameter('idempotencyKey');
-    }
-
-    /**
-     * set idempotencyKey for the payment
-     *
-     * @param string $value
-     * 
-     * @return \Omnipay\Square\Message\CreatePaymentRequest
-     */
-    public function setIdempotencyKey(string $value) : CreatePaymentRequest
-    {
-        return $this->setParameter('idempotencyKey', $value);
-    }
-
-    /**
-     * Get Reference id
-     *
-     * @return string
-     */
-    public function getReferenceId() : ?string
-    {
-        return $this->getParameter('referenceId');
-    }
-
-    /**
-     * Set Reference id
-     *
-     * @param string $value
-     * 
-     * @return \Omnipay\Square\Message\CreatePaymentRequest
-     */
-    public function setReferenceId(string $value) : CreatePaymentRequest
-    {
-        return $this->setParameter('referenceId', $value);
-    }
-
-    /**
      * Get verification token
      *
      * @return string|null
@@ -104,28 +60,6 @@ class CreatePaymentRequest extends AbstractRequest
     public function setVerificationToken(string $value) : CreatePaymentRequest
     {
         return $this->setParameter('verificationToken', $value);
-    }
-
-    /**
-     * Get note
-     *
-     * @return string|null
-     */
-    public function getNote() : ?string
-    {
-        return $this->getParameter('note');
-    }
-
-    /**
-     * Set note
-     *
-     * @param string $value
-     * 
-     * @return \Omnipay\Square\Message\CreatePaymentRequest
-     */
-    public function setNote(string $value) : CreatePaymentRequest
-    {
-        return $this->setParameter('note', $value);
     }
 
      /**

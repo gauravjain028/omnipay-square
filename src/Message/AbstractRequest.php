@@ -63,4 +63,71 @@ abstract class AbstractRequest extends BaseAbstractRequest
     {
         return $this->setParameter('locationId', $value);
     }
+
+    /**
+     * Get idempotencyKey for the payment
+     *
+     * @return string
+     */
+    public function getIdempotencyKey() : string
+    {
+        return $this->getParameter('idempotencyKey');
+    }
+
+    /**
+     * set idempotencyKey for the payment
+     *
+     * @param string $value
+     * 
+     * @return \Omnipay\Square\Message\AbstractRequest
+     */
+    public function setIdempotencyKey(string $value) : AbstractRequest
+    {
+        return $this->setParameter('idempotencyKey', $value);
+    }
+
+    /**
+     * Get Reference id
+     *
+     * @return string
+     */
+    public function getReferenceId() : ?string
+    {
+        return $this->getParameter('referenceId');
+    }
+
+    /**
+     * Set Reference id
+     *
+     * @param string $value
+     * 
+     * @return \Omnipay\Square\Message\AbstractRequest
+     */
+    public function setReferenceId(string $value) : AbstractRequest
+    {
+        return $this->setParameter('referenceId', $value);
+    }
+
+
+    /**
+     * Get note
+     *
+     * @return string|null
+     */
+    public function getNote() : ?string
+    {
+        return $this->getParameter('note');
+    }
+
+    /**
+     * Set note
+     *
+     * @param string $value
+     * 
+     * @return \Omnipay\Square\Message\AbstractRequest
+     */
+    public function setNote(string $value) : AbstractRequest
+    {
+        return $this->setParameter('note', $value);
+    }
 }

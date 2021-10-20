@@ -8,6 +8,8 @@ declare(strict_types = 1);
 namespace Omnipay\Square;
 
 use Omnipay\Common\AbstractGateway;
+use Omnipay\Square\Message\CreatePaymentRequest;
+use Omnipay\Square\Message\CreateCustomerRequest;
 
 /**
  * Square Gateway.
@@ -97,13 +99,39 @@ class Gateway extends AbstractGateway
     }
 
     /**
-     * 
+     * Create a Purchase request.
      *
      * @return \Omnipay\Square\Message\CreatePaymentRequest
      */
-    public function purchase(array $parameters = array())
+    public function purchase(array $parameters = array()) : CreatePaymentRequest
     {
-        return $this->createRequest('\Omnipay\Square\Message\CreatePaymentRequest', $parameters);
+        return $this->createRequest(CreatePaymentRequest::class, $parameters);
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param array $parameters
+     * @return void
+     */
+    public function createCustomer(array $parameters = []) : CreateCustomerRequest
+    {
+        return $this->createRequest(CreateCustomerRequest::class, $parameters);
+    }
+
+    public function updateCustomer(array $parameters = [])
+    {
+        return $this->createRequest('\Omnipay\Square\Message\UpdateCustomerRequest', $parameters);
+    }
+
+    public function fetchCustomer(array $parameters = [])
+    {
+        return $this->createRequest('\Omnipay\Square\Message\FetchCustomerRequest', $parameters);
+    }
+
+    public function deleteCustomer(array $parameters = [])
+    {
+        return $this->createRequest('Omnipay\Square\Message\DeleteCustomerRequest', $parameters);
     }
 
     /**
