@@ -7,9 +7,7 @@ namespace Omnipay\Square\Message;
 use Throwable;
 use Square\Apis\CustomersApi;
 use Square\Environment;
-use Square\Models\CashPaymentDetails;
 use Square\Models\CreateCustomerRequest as CreateCustomerRequestModel;
-use Square\Models\Money;
 use Square\SquareClient;
 /**
  * Class CreateCustomerRequest
@@ -143,17 +141,6 @@ class CreateCustomerRequest extends AbstractRequest
         }
 
         return $this->response = new CreateCustomerResponse($this, $response);
-    }
-
-
-    /**
-     * Get environment value according to Square.
-     *
-     * @return string
-     */
-    public function getEnvironment() : ?string
-    {
-        return $this->getTestMode() === true ? Environment::SANDBOX : Environment::PRODUCTION;
     }
     
     /**

@@ -5,6 +5,7 @@ declare(strict_types = 1);
 namespace Omnipay\Square\Message;
 
 use Omnipay\Common\Message\AbstractRequest as BaseAbstractRequest;
+use Square\Environment;
 
 /**
  * Class AbstractRequest
@@ -20,6 +21,16 @@ abstract class AbstractRequest extends BaseAbstractRequest
      */
     abstract public function sendData($data);
 
+    /**
+     * Get environment value according to Square.
+     *
+     * @return string
+     */
+    public function getEnvironment() : string
+    {
+        return $this->getTestMode() === true ? Environment::SANDBOX : Environment::PRODUCTION;
+    }
+    
     /**
      * Get the request access token.
      *
@@ -107,7 +118,6 @@ abstract class AbstractRequest extends BaseAbstractRequest
     {
         return $this->setParameter('referenceId', $value);
     }
-
 
     /**
      * Get note

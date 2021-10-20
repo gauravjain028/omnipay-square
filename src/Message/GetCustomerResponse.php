@@ -5,11 +5,11 @@ declare(strict_types = 1);
 namespace Omnipay\Square\Message;
 
 /**
- * Class CreateCustomerResponse
+ * Class GetCustomerResponse
  *
  * @package Omnipay\Square\Message
  */
-class CreateCustomerResponse extends AbstractResponse
+class GetCustomerResponse extends AbstractResponse
 {
     /**
      * Gateway Reference
@@ -19,15 +19,5 @@ class CreateCustomerResponse extends AbstractResponse
     public function getCustomerReference() : ?string
     {
         return $this->isSuccessful() ? $this->data->getResult()->getCustomer()->getId() : null;
-    }
-
-    /**
-     * Get teh reference id
-     *
-     * @return null|string
-     */
-    public function getReferenceId() : ?string
-    {
-        return $this->isSuccessful() ? $this->data->getResult()->getCustomer()->getReferenceId() : null;
     }
 }
