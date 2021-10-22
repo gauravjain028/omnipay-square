@@ -6,7 +6,7 @@ namespace Omnipay\Square\Message;
 
 use Throwable;
 use Square\Apis\PaymentsApi;
-use Square\Models\CashPaymentDetails;
+// use Square\Models\CashPaymentDetails;
 use Square\Models\CreatePaymentRequest as CreatePaymentRequestModel;
 use Square\Models\Money;
 use Square\SquareClient;
@@ -93,11 +93,12 @@ class CreatePaymentRequest extends AbstractRequest
         if ($this->getVerificationToken()) {
             $data->setVerificationToken($this->getVerificationToken());
         }
-
-        if ($sourceId === 'CASH') {
-            $cash = new CashPaymentDetails($amountMoney);
-            $data->setCashDetails($cash);
-        }
+        
+        // do not enable cash, only for testing
+        // if ($sourceId === 'CASH') {
+        //     $cash = new CashPaymentDetails($amountMoney);
+        //     $data->setCashDetails($cash);
+        // }
 
         $data->setReferenceId($this->getReferenceId());
 
